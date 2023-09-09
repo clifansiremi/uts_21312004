@@ -1,32 +1,42 @@
+import 'dart:ffi';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class UpdateProductController extends GetxController {
+  late TextEditingController cAlamat;
   late TextEditingController cNama;
-  late TextEditingController cHarga;
+  late TextEditingController cJk;
+  late TextEditingController cNpm;
+  late TextEditingController cProgram_studi;
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   Future<DocumentSnapshot<Object?>> getData(String id) async {
-    DocumentReference docRef = firestore.collection("products").doc(id);
+    DocumentReference docRef = firestore.collection("mahasiswa").doc(id);
     return docRef.get();
   }
 
-  void updateProduct(String nama, String harga, String id) async {
-    DocumentReference productById = firestore.collection("products").doc('id');
+  void updateProduct(String alamat, String nama, String jk, String npm,
+      String program_studi, String id) async {
+    DocumentReference productById = firestore.collection("mahasiswa").doc('id');
     try {
       await productById.update({
-        "name": nama,
-        "price": harga,
+        "alamat": alamat,
+        "nama": nama,
+        "jk": jk,
+        "npm": npm,
+        "program_studi": program_studi,
       });
-
       Get.defaultDialog(
         title: "Berhasil",
-        middleText: "Berhasil mengubah data produk",
+        middleText: "Berhasil mengubah data mahasiswa.",
         onConfirm: () {
+          cAlamat.clear();
           cNama.clear();
-          cHarga.clear();
+          cJk.clear();
+          cNpm.clear();
+          cProgram_studi.clear();
           Get.back();
           Get.back();
         },
@@ -36,22 +46,28 @@ class UpdateProductController extends GetxController {
       print(e);
       Get.defaultDialog(
         title: "Terjadi Kesalahan",
-        middleText: "Gagal Menambahkan Produk.",
+        middleText: "Gagal Menambahkan Data Mahasiswa.",
       );
     }
   }
 
   @override
   void onInit() {
+    cAlamat = TextEditingController();
     cNama = TextEditingController();
-    cHarga = TextEditingController();
+    cJk = TextEditingController();
+    cNpm = TextEditingController();
+    cProgram_studi = TextEditingController();
     super.onInit();
   }
 
   @override
   void onClose() {
-    super.onClose();
+    cAlamat.dispose();
     cNama.dispose();
-    cHarga.dispose();
+    cJk.dispose();
+    cNpm.dispose();
+    cProgram_studi.dispose();
+    super.onClose();
   }
 }

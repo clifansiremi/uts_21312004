@@ -6,17 +6,17 @@ class HomeController extends GetxController {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   Future<QuerySnapshot<Object?>> GetData() async {
-    CollectionReference products = firestore.collection('products');
-    return products.get();
+    CollectionReference mahasiswa = firestore.collection('mahasiswa');
+    return mahasiswa.get();
   }
 
   Stream<QuerySnapshot<Object?>> streamData() {
-    CollectionReference products = firestore.collection('products');
-    return products.snapshots();
+    CollectionReference mahasiswa = firestore.collection('mahasiswa');
+    return mahasiswa.snapshots();
   }
 
   void deleteProduct(String id) {
-    DocumentReference docRef = firestore.collection("products").doc(id);
+    DocumentReference docRef = firestore.collection("mahasiswa").doc(id);
     try {
       Get.defaultDialog(
         title: "Info",

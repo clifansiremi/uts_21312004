@@ -44,7 +44,8 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Data Products'),
+        title: Text('HOME'),
+        backgroundColor: const Color.fromARGB(255, 158, 21, 12),
         centerTitle: true,
         actions: [
           IconButton(
@@ -91,9 +92,9 @@ class HomeView extends GetView<HomeController> {
                   backgroundColor: Colors.white,
                 ),
                 title: Text(
-                    "${(listAllDocs[index].data() as Map<String, dynamic>)["name"]}"),
+                    "${(listAllDocs[index].data() as Map<String, dynamic>)["nama"]}"),
                 subtitle: Text(
-                    "${(listAllDocs[index].data() as Map<String, dynamic>)["price"]}"),
+                    "${(listAllDocs[index].data() as Map<String, dynamic>)["npm"]}"),
                 trailing: IconButton(
                   onPressed: () => showOption(
                     listAllDocs[index].id,
@@ -110,6 +111,7 @@ class HomeView extends GetView<HomeController> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Get.toNamed(Routes.ADD_PRODUCT),
+        backgroundColor: const Color.fromARGB(162, 255, 193, 7),
         child: Icon(Icons.add),
       ),
     );

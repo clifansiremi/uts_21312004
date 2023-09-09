@@ -3,22 +3,35 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AddProductController extends GetxController {
+  late TextEditingController cAlamat;
   late TextEditingController cNama;
-  late TextEditingController cHarga;
+  late TextEditingController cJk;
+  late TextEditingController cNpm;
+  late TextEditingController cProgram_studi;
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  Future<void> addProduct(String nama, String harga) async {
-    CollectionReference products = firestore.collection("products");
+  Future<void> addMahasiswa(String alamat, String nama, String jk, String npm,
+      String program_studi) async {
+    CollectionReference products = firestore.collection("mahasiswa");
 
     try {
-      await products.add({"name": nama, "price": harga});
+      await products.add({
+        "alamat": alamat,
+        "nama": nama,
+        "jk": jk,
+        "npm": npm,
+        "program_studi": program_studi,
+      });
       Get.defaultDialog(
           title: "Berhasil",
-          middleText: "Berhasil menyimpan data produk",
+          middleText: "Berhasil menyimpan data mahasiswa.",
           onConfirm: () {
+            cAlamat.clear();
             cNama.clear();
-            cHarga.clear();
+            cJk.clear();
+            cNpm.clear();
+            cProgram_studi.clear();
             Get.back();
             Get.back();
             textConfirm:
@@ -30,16 +43,22 @@ class AddProductController extends GetxController {
   @override
   void onInit() {
     // TODO: implement onInit
+    cAlamat = TextEditingController();
     cNama = TextEditingController();
-    cHarga = TextEditingController();
+    cJk = TextEditingController();
+    cNpm = TextEditingController();
+    cProgram_studi = TextEditingController();
     super.onInit();
   }
 
   @override
   void onClose() {
     // TODO: implement onClose
+    cAlamat.dispose();
     cNama.dispose();
-    cHarga.dispose();
+    cJk.dispose();
+    cNpm.dispose();
+    cProgram_studi.dispose();
     super.onClose();
   }
 }

@@ -13,6 +13,7 @@ class SignupView extends GetView<SignupController> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Signup View'),
+        backgroundColor: const Color.fromARGB(255, 158, 21, 12),
         centerTitle: true,
       ),
       body: Container(
